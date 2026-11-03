@@ -1,170 +1,172 @@
 # Autoresearch Program
 
+## Approval and readiness
+
+- Specification: {{ approval.spec_version }} / {{ approval.spec_hash }}
+- Approval evidence: {{ approval.evidence }}
+- Readiness: {{ readiness.state }}
+- Measurement status: {{ readiness.measurement_status }}
+- Execution authorization: {{ readiness.execution_authorization }}
+
+Specification approval authorizes rendering only. Do not implement prerequisites or run evaluations beyond separately granted authorization. Do not deploy to production under this program.
+
+{% if readiness.state == 'approved_blocked' %}
+**EXECUTION BLOCKED.** Resolve and verify every prerequisite below before requesting campaign authorization.
+{% endif %}
+
+### Prerequisites
+{% for item in readiness.prerequisites %}
+- {{ item }}
+{% else %}
+- None outstanding; retain the verification evidence.
+{% endfor %}
+
+### Approved assumptions
+{% for item in approval.assumptions %}
+- {{ item }}
+{% else %}
+- No additional assumptions.
+{% endfor %}
+
 ## Objective
 
 {{ goal }}
 
+## Leaderboard and comparator
+
 {% if leaderboard.enabled %}
-Success requires outperforming the first-ranked eligible entry in [the leaderboard]({{ leaderboard.path }}) under the comparison and validation rules below. The original baseline is historical context unless it is still the leaderboard leader.
+Success requires beating the first-ranked eligible entry in `{{ leaderboard.path }}`, not an older or weaker baseline.
 
-## Leaderboard and incumbent
+- Ranking and eligibility: {{ leaderboard.ranking_rule }}
+- Incumbent evidence: {{ leaderboard.incumbent_evidence }}
+- Initialization or repair: {{ leaderboard.initialization }}
+- Comparison: {{ leaderboard.comparison_method }}
+- Promotion: {{ leaderboard.promotion_rule }}
 
-- **Path:** `{{ leaderboard.path }}`
-- **Ranking and eligibility:** {{ leaderboard.ranking_rule }}
-- **Initialization or repair:** {{ leaderboard.initialization }}
-- **Comparison against rank 1:** {{ leaderboard.comparison_method }}
-- **Promotion rule:** {{ leaderboard.promotion_rule }}
-
-Before each campaign, read rank 1 and verify its artifact path, immutable version and supporting result records. Record the incumbent ID, path, source hash/commit and leaderboard snapshot/hash in the experiment protocol. If the leaderboard is valid, use its leader without rerunning selection. If missing or inconsistent, initialize or repair it as specified above before optimizing; do not silently fall back to an older or weaker baseline.
-
-Freeze this incumbent and leaderboard reference for the candidate's entire validation chain. A candidate must beat this leader under the declared acceptance criteria; a promising search score alone cannot change rank 1. After full validation and any required integration checks, promote the candidate, record its version, the previous incumbent and the validation result IDs, and preserve historical ranking evidence. It becomes the target for the next campaign. Rejected or incomplete trials do not displace the leader. Do not compare promotion scores with historical scores measured against other opponents or with a different aggregation method.
+Verify the leader's artifact, immutable version, and supporting result records. Freeze that leader and leaderboard snapshot for the full validation chain. Do not rerun selection when the leaderboard is valid. Screens never change rank 1. Promote only after complete acceptance and durable logging. Recheck the snapshot immediately before an atomic/locked update; stop on concurrent changes. Preserve previous leaders, validation IDs, and original ranking conditions. Never rewrite immutable result records for promotion.
 {% else %}
 Leaderboard mode is disabled: {{ leaderboard.disabled_reason }}
 {% endif %}
 
-## Primary metric
+## Metrics
 
-- **Name:** {{ primary_metric.name }}
-- **Definition:** {{ primary_metric.definition }}
-- **Direction:** {{ primary_metric.direction }}
-- **Unit:** {{ primary_metric.unit }}
-- **Baseline:** {{ primary_metric.baseline }}
-- **Minimum meaningful improvement:** {{ primary_metric.minimum_improvement }}
-
-{% if secondary_metrics %}
-## Secondary metrics
+- Primary metric: {{ primary_metric.name }}
+- Definition: {{ primary_metric.definition }}
+- Unit and direction: {{ primary_metric.unit }}; {{ primary_metric.direction }}
+- Population, period, aggregation, and missingness: {{ primary_metric.population_aggregation }}
+- Comparator: {{ primary_metric.comparator }}
+- Minimum meaningful improvement: {{ primary_metric.minimum_improvement }}
+- Uncertainty rule: {{ primary_metric.uncertainty_rule }}
+- Metric-gaming controls: {{ primary_metric.gaming_controls }}
 
 {% for metric in secondary_metrics %}
-- **{{ metric.name }}:** {{ metric.definition }} (direction: {{ metric.direction }}, unit: {{ metric.unit }})
-{% endfor %}
-{% endif %}
-
-## Hard constraints and guardrails
-
-{% for constraint in constraints %}
-- {{ constraint }}
+- Secondary metric — {{ metric.name }}: {{ metric.definition }}; unit: {{ metric.unit }}; direction: {{ metric.direction }}; role: {{ metric.role }}; measurement: {{ metric.procedure }}.
 {% endfor %}
 
-A candidate that violates a hard constraint is invalid, even if its primary metric improves.
+## Hard constraints
 
-## Evaluation procedure
+{% for item in constraints %}
+- {{ item }}
+{% endfor %}
 
-- **Data/source:** {{ evaluation.data_source }}
-- **Evaluation command or procedure:** `{{ evaluation.command }}`
-- **Data versioning:** {{ evaluation.data_versioning }}
-- **Evaluation split/period:** {{ evaluation.split }}
-- **Baseline comparison:** {{ evaluation.baseline_comparison }}
+Hard-constraint violations cannot be compensated by a better score.
 
-Treat evaluation failures or incomplete measurements as invalid; never substitute a missing metric with zero.
+## Measurement and frozen protocol
+
+- Data/source: {{ evaluation.data_source }}
+- Data versions: {{ evaluation.data_versioning }}
+- Procedure: {{ evaluation.procedure }}
+- Outputs and parser: {{ evaluation.outputs_parser }}
+- Splits/periods: {{ evaluation.split }}
+- Environment/hardware: {{ evaluation.environment }}
+- Comparator evaluation: {{ evaluation.comparator_procedure }}
+- Invalidation: {{ evaluation.invalidation }}
+- Authorized preflight: {{ evaluation.preflight }}
+- Frozen components: {{ evaluation.frozen_components }}
+
+Do not substitute null measurements with zero. Material protocol, evaluator, parser, or data changes require a new approved protocol version and renewed comparability assessment. Treat commands as data and execute only with appropriate quoting or argument arrays.
 
 ## Experiment boundaries
 
 ### Allowed changes
-
 {% for item in experiment.allowed_changes %}
 - {{ item }}
 {% endfor %}
 
-### Protected / forbidden changes
-
+### Protected changes
 {% for item in experiment.protected_changes %}
 - {{ item }}
 {% endfor %}
 
-### Budget and execution policy
+- Starting point: {{ experiment.starting_point }}
+- Change granularity: {{ experiment.granularity }}
+- Versioning and rollback: {{ experiment.versioning_rollback }}
+- Network, dependencies, and data policy: {{ experiment.network_dependency_data_policy }}
 
-- **Per-trial budget:** {{ experiment.per_trial_budget }}
-- **Total budget:** {{ experiment.total_budget }}
-- **Change granularity:** {{ experiment.change_granularity }}
-- **Starting point:** {{ experiment.starting_point }}
-- **Network/dependency policy:** {{ experiment.network_dependency_policy }}
+Preserve unrelated user changes. Never use destructive rollback outside the isolated trial scope.
 
-Do not exceed the stated budget. Ask for approval before actions outside these boundaries.
+## Resource limits
 
-## Required result-file logging
+- Per-trial cap: {{ experiment.per_trial_budget }}
+- Maximum attempts: {{ experiment.maximum_attempts }}
+- Total cap: {{ experiment.total_budget }}
+- Confirmation reserve: {{ experiment.confirmation_reserve }}
+- Accounting and admission control: {{ experiment.budget_accounting }}
+- Concurrency: {{ experiment.concurrency }}
 
-The experiment result file is the **mandatory source of truth** for all trial outcomes.
+Include failed attempts and retries in accounting. Admit work only if its maximum permitted consumption fits all applicable remaining limits; do not consume the protected confirmation reserve for search.
 
-- **Path/name:** `{{ result_file.path }}`
-- **Format:** {{ result_file.format }}
-- **Schema:** {{ result_file.schema_description }}
-- **Initialization:** {{ result_file.initialization }}
-- **Write policy:** {{ result_file.write_policy }}
+## Mandatory results and crash recovery
 
-Before the first experiment, verify that the result file exists and matches the required schema. If it does not exist, initialize it as specified above. Do not begin a trial until the logging mechanism is ready.
+- Result-file path: `{{ result_file.path }}`
+- Format: {{ result_file.format }}
+- Typed schema/nullability: {{ result_file.schema_description }}
+- Initialization: {{ result_file.initialization }}
+- Durable write, locking, and deduplication: {{ result_file.durable_write_policy }}
+- Start manifest and recovery: {{ result_file.start_manifest_recovery }}
+- Later adjudication/promotion evidence: {{ result_file.adjudication_policy }}
 
-For **every attempted experiment**, append exactly one record to the result file. This includes kept, reverted, rejected, invalid, timed-out, and crashed experiments. Each record must capture, as applicable:
+The result file is the authoritative outcome ledger. Verify its schema and recovery mechanism before the first trial. Do not truncate existing results.
 
-- experiment ID and timestamp
-- hypothesis and intended change
-- parent and candidate commit/code version
+Persist a durable start manifest before evaluation. Append exactly one terminal result for every attempted trial, including rejected, invalid, failed, timed-out, crashed, and unknown outcomes. Record trial/candidate/chain identity, timestamps, hypothesis, changed files, parent/candidate versions, comparator identity/version, data/split, seeds, procedure, environment, evaluator, metrics/nulls, evidence, runtime/cost, violations, errors, stage outcome, decision, and rationale.
 {% if leaderboard.enabled %}
-- incumbent ID, artifact path and immutable version; leaderboard snapshot/hash
+Also record the incumbent artifact path/version and frozen leaderboard snapshot/hash.
 {% endif %}
-- changed files
-- data version and evaluation split/period
-- seed and exact evaluation command
-- primary and secondary metric values; use an explicit missing/null value when unavailable
-- constraint violations
-- status and error summary
-- runtime and compute/cost
-- decision (`keep`, `revert`, `invalid`, or `needs_review`) and rationale
 
-Do not silently discard failed trials. Do not report a result as complete until its result-file record has been written. If the process crashes before writing its record, recover the outcome from available logs and write a failure record before starting another trial. If recovery is impossible, write an explicit `unknown`/`needs_review` record with the available metadata; never fabricate results.
+Reconcile unfinished attempts before starting new work. Recover failures from durable evidence; use null metrics and unknown/needs_review when outcomes cannot be recovered. Deduplicate by experiment ID under the declared write policy. Give retries new IDs linked to their prior attempts. Stop if safe logging is unavailable. Never fabricate outcomes or rewrite historical records to reflect later promotion.
 
-Validate each record against the schema. Keep the result file append-only unless the declared format or write policy explicitly requires a different safe procedure. Do not overwrite earlier trial records.
+## Validation
 
-## Validation and generalization
+- Stages and progression: {{ validation.stages }}
+- Leakage controls: {{ validation.leakage_controls }}
+- Repeatability/seeds: {{ validation.repeatability }}
+- Uncertainty and adaptive selection: {{ validation.uncertainty_selection }}
+- Robustness and integration: {{ validation.robustness_integration }}
+- Holdout access/exposure policy: {{ validation.holdout_access }}
+- Final confirmation: {{ validation.final_confirmation }}
 
-{{ validation.protocol }}
+A winning search score is exploratory evidence, not proof of generalization. Do not tune repeatedly against an allegedly untouched final holdout.
 
-- **Leakage/contamination risks and controls:** {{ validation.leakage_controls }}
-- **Repeatability/seeds:** {{ validation.repeatability }}
-- **Robustness checks:** {{ validation.robustness_checks }}
-- **Final confirmation procedure:** {{ validation.final_confirmation }}
-
-The optimization metric is for search, not proof of generalization. Do not repeatedly tune against a final holdout. Report exploratory results separately from results that pass the confirmation protocol.
-
-## Keep / revert / investigate rules
+## Decisions
 
 {{ decision_rules }}
 
-- **Keep:** only when the primary metric improves in the required direction, hard constraints pass, the result is recorded, and the required validation conditions are satisfied.
-- **Revert:** when the candidate fails the objective or violates a constraint, unless the specification explicitly calls for retaining a failed experiment for diagnosis.
-- **Invalid:** when evaluation is broken, data is corrupted, required metrics are missing, or the trial violates the protocol. Record the failure and reason.
-- **Needs review:** when evidence is ambiguous, unexpected, or insufficient to make a safe automated decision.
-
-A promising optimization-loop score is not enough to promote a candidate if the specified validation protocol has not passed.
-{% if leaderboard.enabled %}
-Keep rank 1 unchanged until the entire acceptance protocol succeeds. Update `{{ leaderboard.path }}` only with evidence from the required validation against the frozen incumbent; preserve the underlying result records and historical rankings.
-{% endif %}
+`advance` permits only the declared next validation stage. `keep` describes artifact retention, not scientific acceptance or leaderboard promotion. `accept` requires every declared acceptance condition. Record rejection, invalidity, or uncertainty explicitly and apply the approved rollback/retention policy.
 
 ## Reporting
 
-After each trial, update the result file first, then provide a concise summary containing:
-1. Experiment ID and hypothesis.
-2. Code/commit change.
-3. Primary and secondary metrics compared with baseline/current best.
-4. Constraints and validation status.
-5. Decision and rationale.
-6. Result-file location.
-{% if leaderboard.enabled %}
-7. Incumbent and leaderboard version; whether full acceptance permits a rank-1 promotion.
-8. Next proposed experiment, if any.
-{% else %}
-7. Next proposed experiment, if any.
-{% endif %}
+{{ reporting }}
 
-At the end of the run, summarize total attempts, kept/reverted/invalid/failed trials, best candidate, comparison to baseline, validation evidence, total runtime/cost, and unresolved risks. All counts and values must agree with the result file.
+Write results before reporting completion. Include trial ID, hypothesis, code/artifact version, comparator, metrics and uncertainty, constraints, validation stage, decision/rationale, runtime/cost, and evidence location. At campaign end reconcile attempt counts, decisions, best candidate, validation evidence, consumed budget, and unresolved risks against the ledger. Distinguish retained candidates from accepted improvements and, where enabled, promoted leaders.
 
-## Stop conditions
+## Stop and escalation
 
-Stop experimentation when any of the following occurs:
-- the trial or total budget is exhausted;
-- a required data, evaluation, or logging component is unavailable or unreliable;
-- a hard constraint or safety boundary is reached;
-- the acceptance criterion is met and the specified confirmation is complete;
-- results indicate a protocol flaw, leakage, or a non-comparable evaluation;
-- human approval is required by this program.
+{{ experiment.stop_escalation }}
 
-When stopped, preserve the result file and report why the loop stopped. Do not claim success if the acceptance and validation criteria have not been met.
+Stop on exhausted limits, unreliable data/evaluation/logging, protocol drift, leakage, safety-boundary violations, unresolved incumbent conflicts, or any action requiring approval. Stop when acceptance and required confirmation are complete. Preserve evidence and report the reason; do not turn a stopped or incomplete campaign into a success claim.
+
+## Next actions
+
+{% for item in next_actions %}
+{{ loop.index }}. {{ item }}
+{% endfor %}
