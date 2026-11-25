@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>$page_title</title>
+  <style>$stylesheet</style>
+</head>
+<body>
+<div class="page-shell">
+  <aside class="rail" aria-label="Report navigation">
+    <div class="logo"><span class="logo-mark">◈</span><div><b>FINANCIAL<br>RESEARCH</b><small>INVESTMENT LAB / v2.1</small></div></div>
+    <div class="rail-label">IN THIS REPORT</div>
+    <nav>
+      <a href="#verdict"><span>01</span> Investment view</a>
+      <a href="#fundamentals"><span>02</span> Fundamentals</a>
+      <a href="#valuation"><span>03</span> Valuation</a>
+      <a href="#reverse"><span>04</span> Reverse DCF</a>
+      <a href="#sensitivity"><span>05</span> Sensitivity</a>
+      <a href="#fragility"><span>06</span> Downside risk</a>
+      <a href="#forecast"><span>07</span> Forecast details</a>
+      <a href="#sources"><span>08</span> Evidence</a>
+    </nav>
+    <div class="rail-footer">Point-in-time research<br>Offline · No live pricing</div>
+  </aside>
+  <main class="content">
+    <header class="masthead"><div class="eyebrow">EQUITY RESEARCH / COMPANY STUDY</div><div class="report-date">$report_date</div></header>
+    <section class="hero" id="verdict">
+      <div class="hero-top"><div><div class="hero-kicker">INVESTMENT DECISION · $asof_label</div><h1>$company_name</h1><div class="hero-meta">$ticker <span class="dot">•</span> $currency <span class="dot">•</span> $report_type</div></div><div class="synthetic-chip">$data_status</div></div>
+      <div class="recommendation-layout"><div class="rating-panel">$gauge_html</div><div class="summary-panel"><div class="summary-head">THE INVESTMENT THESIS</div><p class="thesis">$thesis</p><div class="basis">$basis</div><div class="score-caution">$rating_caution</div></div></div>
+      <div class="warning-banner">$warning</div>
+    </section>
+    <section class="kpi-grid" aria-label="Key valuation figures">$kpis</section>
+    <section id="fundamentals" class="section-block">
+      <div class="section-header"><div><div class="section-index">02 / OPERATING TRACK RECORD</div><h2>Financial fundamentals</h2></div><p class="section-desc">Historical growth, cash generation and capital structure.</p></div>
+      <div class="two-col"><div class="panel"><div class="panel-title">Historical growth diagnostics</div>$history_table<p class="hint">FCF CAGR is not meaningful when start/end values are nonpositive. All values reflect supplied inputs.</p></div><div class="panel"><div class="panel-title">Capital structure</div>$capital_table</div></div>
+    </section>
+    <section id="valuation" class="section-block">
+      <div class="section-header"><div><div class="section-index">03 / INTRINSIC VALUE</div><h2>Three-scenario valuation</h2></div><p class="section-desc">Driver-based FCFF discounted at scenario WACC; normalized terminal ROIC.</p></div>
+      <div class="panel">$scenario_cards</div>
+      <div class="two-col charts"><div class="panel"><div class="panel-title">Base-case revenue forecast</div>$revenue_chart</div><div class="panel"><div class="panel-title">Base-case free cash flow</div>$fcf_chart</div></div>
+      <div class="panel"><div class="panel-title">Economics of terminal value</div>$terminal_analysis</div>
+    </section>
+    <section id="reverse" class="section-block"><div class="section-header"><div><div class="section-index">04 / MARKET EXPECTATIONS</div><h2>Reverse DCF</h2></div><p class="section-desc">What operating trajectory is embedded in the dated market quote?</p></div>
+      <div class="two-col"><div class="panel accent-panel">$implied_growth</div><div class="panel"><div class="panel-title">Growth / margin combinations</div>$reverse_table</div></div>
+    </section>
+    <section id="sensitivity" class="section-block"><div class="section-header"><div><div class="section-index">05 / ASSUMPTION RISK</div><h2>Sensitivity map</h2></div><p class="section-desc">Base-case fair value as WACC and terminal growth change.</p></div>
+      <div class="panel"><div class="panel-title">Per-share fair value · $currency</div>$sensitivity_table<p class="hint">This is a deterministic grid, not a confidence interval. Terminal value can represent more than 100% of EV when explicit cash flows are negative.</p></div>
+    </section>
+    <section id="fragility" class="section-block"><div class="section-header"><div><div class="section-index">06 / TAILS & SURVIVAL</div><h2>Fragility & downside stress</h2></div><p class="section-desc">Economic sensitivity under specified hypothetical shocks; no inferred probabilities.</p></div>
+      <div class="panel">$fragility_html</div>
+    </section>
+    <section id="forecast" class="section-block"><div class="section-header"><div><div class="section-index">07 / MODEL TRANSPARENCY</div><h2>Forecast detail</h2></div><p class="section-desc">Annual base-case cash-flow construction in millions.</p></div><div class="panel table-panel">$forecast_table</div></section>
+    <section id="sources" class="section-block"><div class="section-header"><div><div class="section-index">08 / AUDIT TRAIL</div><h2>Evidence & decision tests</h2></div><p class="section-desc">Separate reported observations, model assumptions and judgments.</p></div>
+      <div class="two-col"><div class="panel"><div class="panel-title">Source ledger</div>$source_html</div><div class="panel"><div class="panel-title">What changes the thesis?</div>$decision_tests</div></div>
+      <div class="panel score-breakdown"><div class="panel-title">Recommendation score — transparent breakdown</div>$score_breakdown</div>
+    </section>
+    <footer><span>RIGOROUS FINANCIAL ANALYSIS · v2.1</span><span>$footer_notice</span><p>This report is a conditional research summary, not personalized investment advice. A numerical rating represents a documented analyst judgment—not probability of a positive return, statistical confidence or automatic trading instruction. Unverified or missing inputs must not be replaced with invented data.</p></footer>
+  </main>
+</div>
+</body>
+</html>

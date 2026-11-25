@@ -1,0 +1,384 @@
+{
+  "synthetic": true,
+  "company_name": "Northstar Components (fictional)",
+  "ticker": "EXAMPLE-NOT-LISTED",
+  "currency": "USD",
+  "starting_revenue_millions": 12000,
+  "capital_structure": {
+    "cash": 2300,
+    "debt": 4400,
+    "other_nonoperating_assets": 100,
+    "minority_interest": 0,
+    "preferred_equity": 0,
+    "diluted_shares_millions": 900
+  },
+  "price_snapshot": {
+    "price": 34.5,
+    "observed_on": "2026-01-01",
+    "source_url": "synthetic://educational-fixture-no-market-data"
+  },
+  "historical": {
+    "revenue_millions": {
+      "five_years_ago": 8000,
+      "three_years_ago": 9000,
+      "last_year": 11000,
+      "latest": 12000
+    },
+    "fcf_millions": {
+      "five_years_ago": -500,
+      "three_years_ago": 800,
+      "last_year": 1400,
+      "latest": 1700
+    }
+  },
+  "reverse_growth_grid": [
+    -0.05,
+    0,
+    0.05,
+    0.1,
+    0.15,
+    0.2
+  ],
+  "reverse_margin_bounds": [
+    -0.15,
+    0.15
+  ],
+  "revenue_shock_step": 0.1,
+  "liquidity_stress": {
+    "initial_cash": 2300,
+    "operating_fcf_millions": [
+      -700,
+      -1000,
+      200,
+      500
+    ],
+    "debt_maturities_millions": [
+      0,
+      1400,
+      0,
+      500
+    ],
+    "minimum_cash": 500,
+    "committed_liquidity": 400
+  },
+  "shareholder_return_assumptions": {
+    "annual_dividends_per_share": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7
+    ],
+    "assumed_exit_price": 50
+  },
+  "scenarios": {
+    "bear": {
+      "discount_rate": 0.13,
+      "terminal": {
+        "growth": 0.015,
+        "ebit_margin": 0.14,
+        "cash_tax_rate": 0.22,
+        "roic": 0.12
+      },
+      "drivers": [
+        {
+          "revenue_growth": -0.1,
+          "ebit_margin": 0.16,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.13,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": -0.086111,
+          "ebit_margin": 0.157778,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.13,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": -0.072222,
+          "ebit_margin": 0.155556,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.13,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": -0.058333,
+          "ebit_margin": 0.153333,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.13,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": -0.044444,
+          "ebit_margin": 0.151111,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.13,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": -0.030556,
+          "ebit_margin": 0.148889,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.13,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": -0.016667,
+          "ebit_margin": 0.146667,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.13,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": -0.002778,
+          "ebit_margin": 0.144444,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.13,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.011111,
+          "ebit_margin": 0.142222,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.13,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.025,
+          "ebit_margin": 0.14,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.13,
+          "incremental_nwc_to_revenue": 0.07
+        }
+      ]
+    },
+    "base": {
+      "discount_rate": 0.11,
+      "terminal": {
+        "growth": 0.025,
+        "ebit_margin": 0.22,
+        "cash_tax_rate": 0.22,
+        "roic": 0.18
+      },
+      "drivers": [
+        {
+          "revenue_growth": 0.085,
+          "ebit_margin": 0.23,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.1,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.081111,
+          "ebit_margin": 0.228889,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.1,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.077222,
+          "ebit_margin": 0.227778,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.1,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.073333,
+          "ebit_margin": 0.226667,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.1,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.069444,
+          "ebit_margin": 0.225556,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.1,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.065556,
+          "ebit_margin": 0.224444,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.1,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.061667,
+          "ebit_margin": 0.223333,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.1,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.057778,
+          "ebit_margin": 0.222222,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.1,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.053889,
+          "ebit_margin": 0.221111,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.1,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.05,
+          "ebit_margin": 0.22,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.1,
+          "incremental_nwc_to_revenue": 0.07
+        }
+      ]
+    },
+    "bull": {
+      "discount_rate": 0.1,
+      "terminal": {
+        "growth": 0.03,
+        "ebit_margin": 0.27,
+        "cash_tax_rate": 0.22,
+        "roic": 0.23
+      },
+      "drivers": [
+        {
+          "revenue_growth": 0.17,
+          "ebit_margin": 0.27,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.09,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.158889,
+          "ebit_margin": 0.27,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.09,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.147778,
+          "ebit_margin": 0.27,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.09,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.136667,
+          "ebit_margin": 0.27,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.09,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.125556,
+          "ebit_margin": 0.27,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.09,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.114444,
+          "ebit_margin": 0.27,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.09,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.103333,
+          "ebit_margin": 0.27,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.09,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.092222,
+          "ebit_margin": 0.27,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.09,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.081111,
+          "ebit_margin": 0.27,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.09,
+          "incremental_nwc_to_revenue": 0.07
+        },
+        {
+          "revenue_growth": 0.07,
+          "ebit_margin": 0.27,
+          "effective_cash_tax": 0.22,
+          "depreciation_to_revenue": 0.065,
+          "capex_to_revenue": 0.09,
+          "incremental_nwc_to_revenue": 0.07
+        }
+      ]
+    }
+  },
+  "downside_quadratic_margin_drag": 0.8,
+  "investment_assessment": {
+    "thesis": "Illustrative SELL rating: the synthetic base-case fair value is below the hypothetical quote; the liquidity stress identifies a financing gap. This is a demonstration, not security research.",
+    "components": {
+      "valuation": {
+        "score": 25,
+        "rationale": "Base-case discounted cash flow implies a fair value below the synthetic market quote; bearish downside is material."
+      },
+      "return": {
+        "score": 44,
+        "rationale": "The illustrative shareholder IRR is approximately 9%, below a hypothetical 10% hurdle; the result is assumption-dependent."
+      },
+      "quality": {
+        "score": 61,
+        "rationale": "The modeled business is profitable with growth, but these are invented operating assumptions, not verified competitive advantages."
+      },
+      "resilience": {
+        "score": 20,
+        "rationale": "Illustrative liquidity stress breaches its minimum cash buffer in year two and requires additional financing."
+      },
+      "evidence": {
+        "score": 10,
+        "rationale": "All figures are synthetic; no primary-source evidence exists for this fictitious issuer."
+      }
+    },
+    "catalysts": [
+      "Lower entry price or improved modeled free-cash-flow conversion",
+      "Reduction in assumed funding requirements"
+    ],
+    "invalidation_triggers": [
+      "Weaker sustained operating margins",
+      "Financing needs above stress assumptions",
+      "Material share dilution"
+    ]
+  }
+}

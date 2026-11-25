@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rigorous-financial-analysis-engine"
+version = "2.1.0"
+description = "Offline reference calculations accompanying rigorous-financial-analysis agent skill"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+rigorous-financial-report = "financial_skill.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["financial_skill*", "templates*"]
+
+[tool.setuptools.package-data]
+"templates" = ["*.html", "*.css"]
