@@ -53,4 +53,6 @@ The input file is an **illustration**, not a market-data feed. Do not use its st
 - Fundamental cash-flow scenarios, fragility model shape and terminal ROIC remain *assumptions* even if the arithmetic is tested. Validation of formulas is not validation of a thesis.
 
 ## Minimal report obligations
+Present **Bear, Base and Bull as three clearly separated, labeled cards** in the final HTML: prominent case headings, visible borders and spacing, and distinct muted case colors (Bear warm red, Base teal, Bull blue). Keep each case's valuation and assumptions inside its own card; use three columns on wide screens and stack with visible gaps on mobile. Separation must remain clear without color and in print.
+
 Visual HTML report with 1–100 justified needle rating (or explicitly unrated if essential evidence is missing), plus short verdict; dated facts/sources; 3y/5y/YoY revenue+FCF; capitalization and normalized profitability; three-scenario driver assumptions, EV/equity/share and terminal fraction; reverse DCF; quantitative sensitivity/fragility; liquidity downside/ruin; optional shareholder IRR; clear invalidation tests and invest/watch/avoid conditions. Consult `references/report-template.md` for tables.

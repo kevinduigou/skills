@@ -28,7 +28,7 @@ If a research request lacks financial data sufficient to populate the engine, **
 2. **Large semi-circular five-band needle gauge:** 1–20 **Strong Sell**, 21–40 **Sell**, 41–60 **Hold**, 61–80 **Buy**, 81–100 **Strong Buy**. Show numeric score **1–100**, category and concise conditional investment thesis. If evidence insufficient, use `Not rated`, no needle/score. Do **not** show invented middle/neutral scores.
 3. Quick read: dated market price, central fair value, upside/downside, terminal contribution, prominent data-quality warning.
 4. Historical facts: 3y, 5y CAGR and latest YoY for revenue and FCF, capital structure.
-5. Driver-based Bear/Base/Bull valuations with normalized terminal ROIC, growth, WACC, terminal-value contribution and distress warnings; charts for base revenue and FCFF.
+5. Driver-based Bear/Base/Bull valuations in three clearly separated cards with prominent case headings, visible borders, generous gaps and distinct muted colors (Bear warm red, Base teal, Bull blue). Each card contains its own valuation, normalized terminal ROIC, growth, WACC, terminal-value contribution and distress warnings. Use three columns on wide screens and stack with visible gaps on mobile; preserve separation without color and in print. Follow with charts for base revenue and FCFF.
 6. Reverse DCF market-implied growth and margin assumptions with feasibility caveat.
 7. WACC × terminal-g price sensitivity table; range should reflect inputs, not manufactured confidence intervals.
 8. Taleb-style finite-difference stress/fragility, liquidity breach/financing gap, conditional shareholder IRR where available. Distinguish local curvature from tail risk.

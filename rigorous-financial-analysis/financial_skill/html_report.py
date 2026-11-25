@@ -170,7 +170,7 @@ def render_html_report(data, capital, market, cases) -> str:
         v=vals[case_name]
         change=v.fair_price/market.price-1
         attr=' downside' if change<0 else ' upside'
-        cards.append(f'<article class="scenario {case_name}"><div class="s-top"><span>{h(case_name)} CASE</span><span>{"FOCUS" if case_name=="base" else "SCENARIO"}</span></div>'
+        cards.append(f'<article class="scenario {case_name}"><div class="s-top"><h3>{h(case_name.title())} case</h3><span>{"FOCUS" if case_name=="base" else "SCENARIO"}</span></div>'
                      f'<div class="s-fair">{num(v.fair_price,2)} <small style="font-size:12px">{h(currency)}</small></div>'
                      f'<div class="s-upside{attr}">{h(percent(change))} vs market</div><div class="s-meter"><i style="width:{max(0,min(100,100*v.fair_price/max(.01,price_max))):.1f}%"></i></div>'
                      f'<div class="s-detail"><span>WACC</span><b>{rate(v.case.discount_rate.annual)}</b></div>'
